@@ -3,7 +3,7 @@ version: __VERSION__
 manifest_version: 2
 description: Violentmonkey with more unsafe api
 author: gholk
-homepage_url: 'https://github.com/GHolk/violentmonkey'
+homepage_url: 'https://github.com/GHolk/violentmonkey/tree/purple-monkey'
 icons:
   '16': public/images/icon16.png
   '48': public/images/icon48.png
