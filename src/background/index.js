@@ -22,6 +22,13 @@ addPublicCommands({
   SetTimeout(ms) {
     return ms > 0 && makePause(ms);
   },
+  async WebextEval(o) {
+    let fn;
+    if (o.mode == 'eval') fn = function (...args) { return eval(o.code) };
+    else fn = eval(`(${o.code})`);
+    const r = fn(...(o.args || []));
+    return await Promise.resolve(r);
+  },
 });
 
 function handleCommandMessage({ cmd, data, url, [kTop]: mode } = {}, src) {

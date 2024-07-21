@@ -52,6 +52,15 @@ export const GM_API_CTX_GM4ASYNC = {
   GM_setValues(obj) {
     return dumpValue(this, true, obj);
   },
+  GM_webextEval(fn, args = [], opt = {}) {
+    const code = String(fn);
+    if (typeof fn != 'function') opt.mode = 'eval';
+    return new Promise((res, rej) => bridge.call(
+      'WebextEval', Object.assign({code, args}, opt), null,
+      ({ok, response}) => (ok ? res : rej)(response),
+      'cbId'
+    ))
+  },
   /** @this {GMContext} */
   GM_messageExtension(id, message) {
     const p = 'web-extension://';

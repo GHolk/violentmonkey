@@ -52,6 +52,19 @@ addHandlers({
     delete menus[id]?.[key];
     sendSetPopup(true);
   },
+  async WebextEval(options, realm) {
+    let response;
+    let ok = true;
+    try {
+        response = await sendCmd('WebextEval', options);
+    }
+    catch (error) {
+      ok = false;
+      response = error;
+    }
+    const data = { ok, response };
+    bridge.post('Callback', { id: options.cbId, data }, realm);
+  },
 });
 
 export async function sendSetPopup(isDelayed) {
